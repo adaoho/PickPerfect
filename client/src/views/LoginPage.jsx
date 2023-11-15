@@ -168,7 +168,7 @@ const LoginPage = () => {
       const { data } = await pickPerfectApi.post("/user/login", loginForm);
       // console.log(data, "<<<< from axios getLogin useEffect");
 
-      localStorage.setItem("access_token", data.access_access_token);
+      localStorage.setItem("access_token", data.access_token);
       localStorage.setItem("email", data.email);
       localStorage.setItem("fullname", data.fullname);
       navigate("/");

@@ -43,7 +43,7 @@ const router = createBrowserRouter([
           text: `You Already Login!`,
           duration: 3000,
           position: "center",
-          gravity: "top",
+          gravity: "bottom",
           close: true,
           offset: {
             y: 30,
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
           text: `You Already Login!`,
           duration: 3000,
           position: "center",
-          gravity: "top",
+          gravity: "bottom",
           close: true,
           offset: {
             y: 30,
