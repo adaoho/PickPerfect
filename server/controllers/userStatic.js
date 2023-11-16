@@ -58,12 +58,14 @@ class UserStatic {
         id: findUser.id,
         email: findUser.email,
         fullName: findUser.fullname,
+        photo: findUser.imageUrl,
       });
 
       res.status(200).json({
         access_token,
         email: findUser.email,
         fullname: findUser.fullname,
+        photo: findUser.imageUrl,
       });
     } catch (error) {
       next(error);
@@ -111,9 +113,12 @@ class UserStatic {
         email: user.email,
         fullname: user.fullname,
       });
-      res
-        .status(200)
-        .json({ access_token, fullname: user.fullname, email: user.email });
+      res.status(200).json({
+        access_token,
+        fullname: user.fullname,
+        email: user.email,
+        photo: user.imageUrl,
+      });
     } catch (error) {
       next(error);
     }
@@ -142,9 +147,12 @@ class UserStatic {
         fullname: user.fullname,
       });
 
-      res
-        .status(200)
-        .json({ access_token, fullname: user.fullname, email: user.email });
+      res.status(200).json({
+        access_token,
+        fullname: user.fullname,
+        email: user.email,
+        photo: user.imageUrl,
+      });
     } catch (error) {
       next(error);
     }
@@ -175,9 +183,12 @@ class UserStatic {
 
       // console.log(access_token);
 
-      res
-        .status(200)
-        .json({ access_token, fullname: user.fullname, email: user.email });
+      res.status(200).json({
+        access_token,
+        fullname: user.fullname,
+        email: user.email,
+        photo: user.imageUrl,
+      });
     } catch (error) {
       next(error);
     }
