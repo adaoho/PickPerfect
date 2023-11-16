@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Skin Health",
+    "description": "Proper nutrition supports skin health by promoting collagen production and reducing inflammation.",
+    "imageUrl": "https://source.unsplash.com/random/600x600/?skinhealth"
+  },
+  {
+    "name": "Weight Management",
+    "description": "A balanced diet and regular exercise are essential for effective weight management and overall well-being.",
+    "imageUrl": "https://source.unsplash.com/random/600x600/?weightmanagement"
+  },
+  {
+    "name": "Hydration",
+    "description": "Staying adequately hydrated is crucial for maintaining bodily functions, promoting digestion, and supporting overall health.",
+    "imageUrl": "https://source.unsplash.com/random/600x600/?hydration"
+  },
+  {
+    "name": "Blood Sugar Control",
+    "description": "Consuming a balanced diet with complex carbohydrates helps regulate blood sugar levels and reduces the risk of diabetes.",
+    "imageUrl": "https://source.unsplash.com/random/600x600/?exercise"
+  },
+  {
+    "name": "FitFlex Routine",
+    "description": "Incorporating a FitFlex routine involves a combination of flexibility and fitness exercises for improved mobility and strength.",
+    "imageUrl": "https://source.unsplash.com/random/600x600/?exercise-2"
+  },
+  {
+    "name": "Bone Health",
+    "description": "Adequate calcium and vitamin D intake, along with weight-bearing exercises, contribute to strong and healthy bones.",
+    "imageUrl": "https://source.unsplash.com/random/600x600/?exercise-3"
+  },
+  {
+    "name": "Eye Health",
+    "description": "Nutrients like vitamins A, C, and E, along with omega-3 fatty acids, are vital for maintaining good vision and overall eye health.",
+    "imageUrl": "https://source.unsplash.com/random/600x600/?exercise-4"
+  },
+  {
+    "name": "Immune System",
+    "description": "A well-rounded diet rich in vitamins, minerals, and antioxidants strengthens the immune system and helps the body fight off infections.",
+    "imageUrl": "https://source.unsplash.com/random/600x600/?immune-system"
+  },
+  {
+    "name": "Healthier Diet",
+    "description": "Opting for whole, nutrient-dense foods over processed alternatives promotes a healthier diet and supports overall well-being.",
+    "imageUrl": "https://source.unsplash.com/random/600x600/?healt-diet"
+  },
+  {
+    "name": "Skin Health",
+    "description": "Proper nutrition supports skin health by promoting collagen production and reducing inflammation.",
+    "imageUrl": "https://source.unsplash.com/random/600x600/?skinhealth"
+  },
+  {
+    "name": "Natural Sweeteners",
+    "description": "Choosing natural sweeteners like honey or maple syrup in moderation can be a healthier alternative to refined sugars, reducing the risk of blood sugar spikes.",
+    "imageUrl": "https://source.unsplash.com/random/600x600/?natural-sweet"
+  }
+]

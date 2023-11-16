@@ -1,0 +1,30 @@
+[
+  {
+    "MovementId": 1,
+    "UserId": 1
+  },
+  {
+    "MovementId": 2,
+    "UserId": 1
+  },
+  {
+    "MovementId": 3,
+    "UserId": 1
+  },
+  {
+    "MovementId": 4,
+    "UserId": 1
+  },
+  {
+    "MovementId": 1,
+    "UserId": 2
+  },
+  {
+    "MovementId": 4,
+    "UserId": 2
+  },
+  {
+    "MovementId": 5,
+    "UserId": 2
+  }
+]

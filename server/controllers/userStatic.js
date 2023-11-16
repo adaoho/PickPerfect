@@ -1,3 +1,4 @@
+const imagekitApi = require("../api/imageKitApi");
 const { comparePassword } = require("../helpers/bcrypt");
 const { createToken } = require("../helpers/jwt");
 const { User } = require("../models");
@@ -188,6 +189,39 @@ class UserStatic {
         fullname: user.fullname,
         email: user.email,
         photo: user.imageUrl,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async userUpdateImage(req, res, next) {
+    try {
+      const { id } = req.params;
+
+      const findUser = await User.findByPk(id);
+      if (!findUser) throw { name: "InvalidData" };
+
+      if (!req.file) throw { name: "imageEmpty" };
+
+      const fileData = req.file.buffer.toString("base64");
+
+      const form = new FormData();
+      form.append("file", fileData);
+      form.append("fileName", req.file.originalname);
+      // console.log(form);
+
+      const { data } = await imagekitApi.post("/files/upload", form);
+
+      const updateImage = await User.update(
+        { imageUrl: data.url },
+        { where: { id } }
+      );
+
+      if (updateImage.length === 0) throw { name: "NotFound" };
+
+      res.status(200).json({
+        message: `Image ${findUser.fullname} success to update`,
       });
     } catch (error) {
       next(error);

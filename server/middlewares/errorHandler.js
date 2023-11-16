@@ -58,6 +58,18 @@ function errorHandler(err, req, res, next) {
       status = 404;
       message = "Error Data Not Found";
       break;
+    case "DataEmpty":
+      status = 400;
+      message = "User didn't have any Data";
+      break;
+    case "DataAlreadyInput":
+      status = 400;
+      message = "Data Movement Already Being Input";
+      break;
+    case "DataAlreadyDelete":
+      status = 400;
+      message = "Data Movement Already Being Deleted";
+      break;
 
     default:
       status = 500;
