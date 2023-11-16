@@ -4,34 +4,17 @@ import Toastify from "toastify-js";
 import LoginPage from "../views/LoginPage";
 import RegisterPage from "../views/RegisterPage";
 import MainPage from "../views/MainPage";
-import DashboardPage from "../views/DashboardPage";
+import HomePage from "../views/HomePage";
+import MovementPage from "../views/MovementPage";
+import DetailFruit from "../views/DetailFruit";
+import PurchasePage from "../views/PurchasePage";
+import HomeFruit from "../views/HomeFruit";
 
 const router = createBrowserRouter([
   {
     path: "*",
     loader: async () => {
-      if (!localStorage.access_token) {
-        Toastify({
-          text: `You Need to Login First!`,
-          duration: 3000,
-          position: "center",
-          gravity: "top",
-          close: true,
-          offset: {
-            y: 30,
-          },
-          style: {
-            background: "linear-gradient(to right, #900C3F, #F94C10)",
-          },
-        }).showToast();
-        return redirect("/login");
-      }
-
-      if (localStorage.access_token) {
-        return redirect("/");
-      }
-
-      return null;
+      return redirect("/");
     },
   },
   {
@@ -46,7 +29,7 @@ const router = createBrowserRouter([
           gravity: "bottom",
           close: true,
           offset: {
-            y: 30,
+            y: 50,
           },
           style: {
             background: "linear-gradient(to right, #14C93E, #041C3B)",
@@ -70,7 +53,7 @@ const router = createBrowserRouter([
           gravity: "bottom",
           close: true,
           offset: {
-            y: 30,
+            y: 50,
           },
           style: {
             background: "linear-gradient(to right, #14C93E, #041C3B)",
@@ -87,7 +70,28 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <DashboardPage />,
+        element: <HomePage />,
+      },
+    ],
+  },
+  {
+    element: <MainPage />,
+    children: [
+      {
+        path: "/movement/:id",
+        element: <MovementPage />,
+      },
+      {
+        path: "/fruit/:id",
+        element: <DetailFruit />,
+      },
+      {
+        path: "/purchase/:id",
+        element: <PurchasePage />,
+      },
+      {
+        path: "/fruit",
+        element: <HomeFruit />,
       },
     ],
     loader: async () => {

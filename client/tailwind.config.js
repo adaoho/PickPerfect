@@ -8,6 +8,10 @@ export default {
         "pp-100": "#14C93E",
         "pp-150": "#ee240e",
       },
+      fontFamily: {
+        raleway: ["Raleway"],
+        roboto: ["Roboto"],
+      },
     },
   },
   plugins: [require("daisyui")],
