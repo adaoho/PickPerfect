@@ -2,7 +2,7 @@ const Checkout = () => {
   return (
     <>
       {/* <!-- Right Component --> */}
-      <div className="flex flex-col items-center w-[700px] mx-auto">
+      <div className="flex flex-col items-center w-full mx-auto">
         <div className="flex flex-col w-3/4 p-6 space-y-4 divide-y divide-gray-700 bg-white border text-gray-900 sticky top-28 rounded-md shadow-xl">
           <h2 className="text-2xl font-semibold">Nutrions Fact</h2>
           <ul className="flex flex-col pt-4 space-y-2">
