@@ -2,7 +2,7 @@ import { useContext } from "react";
 import CategoryBar from "../components/CategoryBar";
 import { FruitContenxt, MovementContext, FruitMovContext } from "../context";
 import pickPerfectApi from "../config";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import Toastify from "toastify-js";
 import { createContext, useState, useEffect } from "react";
@@ -81,9 +81,12 @@ const HomePage = () => {
                 </span>
               </h1>
               <div className="flex justify-center my-8">
-                <button className="mx-auto p-3 px-5 bg-white text-gray-400 rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105">
+                <Link
+                  to={`/movement/${getId}`}
+                  className="mx-auto p-3 px-5 bg-white text-gray-400 rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105"
+                >
                   Explore Your Move
-                </button>
+                </Link>
               </div>
             </div>
             <div className="flex w-full h-full bg-gradient-to-t from-pp-50">

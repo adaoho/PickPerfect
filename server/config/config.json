@@ -4,14 +4,16 @@
     "password": "1234",
     "database": "PickPerfect_db",
     "host": "localhost",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   },
   "test": {
     "username": "postgres",
     "password": "1234",
     "database": "PickPerfect_test",
     "host": "localhost",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "logging": false
   },
   "production": {
     "use_env_variable": "DATABASE_URL"
