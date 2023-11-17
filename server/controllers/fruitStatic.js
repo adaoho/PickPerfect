@@ -6,9 +6,11 @@ class FruitStatic {
     try {
       const { data } = await fruityViceApi.get("/all");
 
+      // console.log(data);
       data.map(async (element) => {
         // console.log(element.nutritions.calories, "<<< this is from element");
 
+        console.log(element, "<<<< element");
         return await Fruit.create({
           name: element.name,
           family: element.family,

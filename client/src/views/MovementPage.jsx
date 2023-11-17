@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { FruitMovContext } from "../context";
+import { FruitMovContext, MovementContext } from "../context";
 import { reauthenticateWithRedirect } from "firebase/auth";
 import pickPerfectApi from "../config";
 import { redirect, useNavigate } from "react-router-dom";
@@ -17,7 +17,8 @@ const MovementPage = () => {
   const getId = localStorage.getItem("user_id");
   const getName = localStorage.getItem("fullname").split(" ")[0];
   const getToken = localStorage.getItem("access_token");
-  const { fruitMov, setFruitMov } = useContext(FruitMovContext);
+  const { fruitMov, setFruitMov, fetchFruitMov } = useContext(FruitMovContext);
+  // const { fetchMovementProvider, movement } = useContext(MovementContext);
 
   const leaveMovement = async (id) => {
     try {
@@ -41,7 +42,8 @@ const MovementPage = () => {
         },
       }).showToast();
 
-      navigate(`/movement/${getId}`);
+      fetchFruitMov();
+      // navigate(`/movement/${getId}`);
     } catch (error) {
       console.log(error);
     }
@@ -128,12 +130,12 @@ const MovementPage = () => {
                   className="flex w-full object-cover h-full rounded-lg brightness-65 group-hover:scale-105 transform transition-transform duration-300 -z-10"
                 />
               </div>
-              {console.log(element.Movement.Fruits[0]?.name, "<<< this is it")}
+              {/* {console.log(element.Movement.Fruits[0]?.name, "<<< this is it")} */}
               {/* Card Fruit */}
               <div className="flex flex-col w-4/12 gap-y-4">
                 <div className="flex flex-row h-[190px] gap-x-4 overflow-hidden bg-clip-content">
                   {/* --- Card Fruit Section 1 */}
-                  <div className="group relative flex transition-all duration-300 rounded-md bg-clip-content overflow-hidden group items-end hover:shadow-2xl">
+                  <div className="group relative flex transition-all hover:bg-pp-100/20 duration-300 rounded-md bg-clip-content overflow-hidden group items-end hover:shadow-2xl">
                     <div className="absolute top-0 right-0">
                       <button
                         onClick={() =>

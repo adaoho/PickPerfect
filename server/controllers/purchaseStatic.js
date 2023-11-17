@@ -1,4 +1,5 @@
 const { Purchase } = require("../models");
+const { PaymentRequest, Invoice } = require("xendit-node");
 
 class PurchaseStatic {
   // Perlu Authorization
@@ -75,6 +76,34 @@ class PurchaseStatic {
       });
     } catch (error) {
       next(error);
+    }
+  }
+
+  static async purchaseXendit(req, res, next) {
+    try {
+      const invoiceService = new Invoice({
+        secretKey:
+          "xnd_development_3RivEnJBSJw9lQwBiMDiRk2LZZPxlxiv6ek3uukvjW5a2hY6e6VujAshOgWJMH",
+      });
+
+      const data = {
+        amount: 10000,
+        invoiceDuration: 172800,
+        externalId: "test1234",
+        description: "Test Invoice",
+        currency: "IDR",
+        reminderTime: 1,
+      };
+      const response = await invoiceService.createInvoice({
+        data: data,
+      });
+
+      // console.log(response, "<<< response xendit");
+
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+      console.log(error);
     }
   }
 }

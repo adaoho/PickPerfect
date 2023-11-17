@@ -6,5 +6,10 @@ router.get("/", authorization, PurchaseStatic.getPurchase);
 router.post("/:id", authorization, PurchaseStatic.postPurchase);
 router.delete("/:id", authorization, PurchaseStatic.deletePurchase);
 router.patch("/:id", authorization, PurchaseStatic.statusPurchase);
+router.post(
+  "/xendit/:purchaseId",
+  authorization,
+  PurchaseStatic.purchaseXendit
+);
 
 module.exports = router;

@@ -12,20 +12,20 @@ const DetailFruit = () => {
 
   const { id } = useParams();
 
-  useEffect(() => {
-    const fetchDetailFruit = async () => {
-      try {
-        const { data } = await pickPerfectApi.get(`/fruit/${id}`, {
-          headers: {
-            Authorization: `Bearer ${getToken}`,
-          },
-        });
-        setFruitDetail(data.getFruitDetail);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const fetchDetailFruit = async () => {
+    try {
+      const { data } = await pickPerfectApi.get(`/fruit/${id}`, {
+        headers: {
+          Authorization: `Bearer ${getToken}`,
+        },
+      });
+      setFruitDetail(data.getFruitDetail);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
+  useEffect(() => {
     fetchDetailFruit();
   }, []);
 
@@ -48,11 +48,11 @@ const DetailFruit = () => {
                 <div className="flex items-start md:space-x-3">
                   <span class="material-symbols-outlined">grocery</span>
                   <p className="text-lg w-[600px]">
-                    The {fruitDetail.name} is one of the pome (fleshy) fruits.
-                    Apples at harvest vary widely in size, shape, colour, and
-                    acidity, but most are fairly round and some shade of red or
-                    yellow. The thousands of varieties fall into three broad
-                    classes: cider, cooking, and dessert varieties.
+                    The {fruitDetail.name} is one of the pome (fleshy) fruits.{" "}
+                    {fruitDetail.name}s at harvest vary widely in size, shape,
+                    colour, and acidity, but most are fairly round and some
+                    shade of red or yellow. The thousands of varieties fall into
+                    three broad classes: cider, cooking, and dessert varieties.
                   </p>
                 </div>
               </div>
@@ -61,7 +61,10 @@ const DetailFruit = () => {
         </div>
         {/* Grid Right */}
         <div className="flex w-[400px] h-full justify-center items-start">
-          <Checkout fruitDetail={fruitDetail} />
+          <Checkout
+            fruitDetail={fruitDetail}
+            fetchDetailFruit={fetchDetailFruit}
+          />
         </div>
       </div>
     </>

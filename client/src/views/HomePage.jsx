@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import CategoryBar from "../components/CategoryBar";
-import { FruitContenxt, MovementContext } from "../context";
+import { FruitContenxt, MovementContext, FruitMovContext } from "../context";
 import pickPerfectApi from "../config";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -13,6 +13,7 @@ const HomePage = () => {
   const getId = localStorage.getItem("user_id");
   const { fruit, setFruit } = useContext(FruitContenxt);
   const { movement, setMovement } = useContext(MovementContext);
+  const { fruitMov, setFruitMov, fetchFruitMov } = useContext(FruitMovContext);
 
   const submitMovement = async (movementid) => {
     // element.preventDefault()
@@ -42,6 +43,7 @@ const HomePage = () => {
         },
       }).showToast();
 
+      fetchFruitMov();
       navigate(`/movement/${getId}`);
     } catch (error) {
       console.log(error);
@@ -60,24 +62,6 @@ const HomePage = () => {
       }).showToast();
     }
   };
-
-  useEffect(() => {
-    const fetchFruit = async () => {
-      try {
-        const { data } = await pickPerfectApi.get("/fruit/fetchfruit", {
-          headers: {
-            Authorization: `Bearer ${getToken}`,
-          },
-        });
-
-        console.log(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchFruit();
-  }, []);
 
   return (
     <>
@@ -137,7 +121,7 @@ const HomePage = () => {
                     <div className="flex flex-row">
                       {/* {console.log(movement[0].name)} */}
                       <button
-                        onClick={(id) => submitMovement(movement[0].id)}
+                        onClick={(id) => submitMovement(movement[8].id)}
                         className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105"
                       >
                         I'm In
@@ -175,7 +159,7 @@ const HomePage = () => {
                   </div>
                   <div className="flex flex-row">
                     <button
-                      onClick={(id) => submitMovement(movement[1].id)}
+                      onClick={(id) => submitMovement(movement[10].id)}
                       className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105"
                     >
                       I'm In
@@ -207,7 +191,7 @@ const HomePage = () => {
                   </div>
                   <div className="flex flex-row">
                     <button
-                      onClick={(id) => submitMovement(movement[3].id)}
+                      onClick={(id) => submitMovement(movement[0].id)}
                       className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105"
                     >
                       I'm In
@@ -243,7 +227,7 @@ const HomePage = () => {
                   </div>
                   <div className="flex flex-row">
                     <button
-                      onClick={(id) => submitMovement(movement[2].id)}
+                      onClick={(id) => submitMovement(movement[3].id)}
                       className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105"
                     >
                       I'm In
@@ -275,7 +259,7 @@ const HomePage = () => {
                   </div>
                   <div className="flex flex-row">
                     <button
-                      onClick={(id) => submitMovement(movement[4].id)}
+                      onClick={(id) => submitMovement(movement[5].id)}
                       className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105"
                     >
                       I'm In

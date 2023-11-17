@@ -41,22 +41,22 @@ export const FruitProvider = ({ children }) => {
 export const MovementProvider = ({ children }) => {
   const [movement, setMovement] = useState([]);
 
+  const fetchMovementProvider = async () => {
+    try {
+      const { data } = await pickPerfectApi.get("/movement/", {
+        headers: {
+          Authorization: `Bearer ${getToken}`,
+        },
+      });
+
+      // console.log(data, "<<< from fetch");
+      setMovement(data.getMovement);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    const fetchMovementProvider = async () => {
-      try {
-        const { data } = await pickPerfectApi.get("/movement/", {
-          headers: {
-            Authorization: `Bearer ${getToken}`,
-          },
-        });
-
-        // console.log(data, "<<< from fetch");
-        setMovement(data.getMovement);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     fetchMovementProvider();
   }, []);
 
@@ -66,7 +66,9 @@ export const MovementProvider = ({ children }) => {
 
   return (
     <>
-      <MovementContext.Provider value={{ movement, setMovement }}>
+      <MovementContext.Provider
+        value={{ movement, setMovement, fetchMovementProvider }}
+      >
         {children}
       </MovementContext.Provider>
     </>
@@ -76,21 +78,22 @@ export const MovementProvider = ({ children }) => {
 export const FruitMovProvider = ({ children }) => {
   const [fruitMov, setFruitMov] = useState([]);
 
-  useEffect(() => {
-    const fetchFruitMov = async () => {
-      try {
-        const { data } = await pickPerfectApi.get(`/fruitmov/`, {
-          headers: {
-            Authorization: `Bearer ${getToken}`,
-          },
-        });
+  const fetchFruitMov = async () => {
+    try {
+      const { data } = await pickPerfectApi.get(`/fruitmov/`, {
+        headers: {
+          Authorization: `Bearer ${getToken}`,
+        },
+      });
 
-        // console.log(data, "<<< from fetch");
-        setFruitMov(data.getFruitMovData);
-      } catch (error) {
-        console.log(error, "<<< from fetch");
-      }
-    };
+      // console.log(data, "<<< from fetch");
+      setFruitMov(data.getFruitMovData);
+    } catch (error) {
+      console.log(error, "<<< from fetch");
+    }
+  };
+
+  useEffect(() => {
     fetchFruitMov();
   }, []);
 
@@ -100,7 +103,9 @@ export const FruitMovProvider = ({ children }) => {
 
   return (
     <>
-      <FruitMovContext.Provider value={{ fruitMov, setFruitMov }}>
+      <FruitMovContext.Provider
+        value={{ fruitMov, setFruitMov, fetchFruitMov }}
+      >
         {children}
       </FruitMovContext.Provider>
     </>

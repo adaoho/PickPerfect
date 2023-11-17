@@ -45,8 +45,8 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="">
-          <div className="flex items-center justify-evenly rounded-full shadow-md h-12 w-[480px] border font-roboto">
+        <div className="sm:hidden lg:flex">
+          <div className="flex items-center justify-evenly sm:justify-between rounded-full shadow-md h-12 w-[480px] md:w-full border font-roboto">
             <Link
               to={`/movement/${getId}`}
               className="border-r-2 border-gray-100 px-4 text-sm font-medium hover:scale-105 hover:text-pp-100 active:scale-90 transition-all hover:font-bold"

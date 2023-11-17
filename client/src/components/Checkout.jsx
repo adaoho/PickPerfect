@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-const Checkout = ({ fruitDetail }) => {
+const Checkout = ({ fruitDetail, fetchDetailFruit }) => {
+  const getId = localStorage.getItem("user_id");
   const currencyFormatted = (number) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
@@ -9,23 +10,40 @@ const Checkout = ({ fruitDetail }) => {
     }).format(number);
   };
 
+  console.log(fruitDetail, "<<< this is fruitDetail");
   const [quantity, setQuantity] = useState(0);
+  const [price, setPrice] = useState(fruitDetail.price);
+  const [total, setTotal] = useState(0);
+  const [formPurchase, setFormPurchase] = useState({
+    name: fruitDetail.name,
+    quantity: 0,
+    price: fruitDetail.price,
+    total: total,
+    UserId: getId,
+    status: false,
+  });
 
   const plusQty = () => {
     setQuantity(quantity + 1);
+    setTotal(quantity * fruitDetail.price);
+    setFormPurchase({
+      ...formPurchase,
+      quantity,
+      total,
+    });
   };
 
   const minusQty = () => {
     setQuantity(quantity - 1);
   };
 
-  useEffect(() => {
-    console.log(quantity);
-  }, [quantity]);
+  useEffect(() => {}, [quantity]);
+
+  console.log(formPurchase, "<<<< form purchase");
 
   return (
     <>
-      {console.log(fruitDetail, "<<< from checkout")}
+      {/* {console.log(fruitDetail, "<<< from checkout")} */}
       {/* <!-- Right Component --> */}
       <div className="flex flex-col items-center w-full mx-auto">
         <div className="flex flex-col w-3/4 p-6 space-y-4 divide-y divide-gray-700 bg-white border text-gray-900 sticky top-28 rounded-md shadow-xl">
@@ -85,7 +103,7 @@ const Checkout = ({ fruitDetail }) => {
                 <div className="flex flex-row space-x-4 items-center justify-center">
                   {quantity > 0 && (
                     <button
-                      onClick={minusQty}
+                      onClick={() => minusQty()}
                       class="font-bold material-symbols-outlined p-1 text-[10px] outline-none h-[18px] rounded-full outline-pp-50 hover:text-white hover:bg-pp-100 hover:outline-pp-100 transition-all active:scale-75"
                     >
                       remove
@@ -93,7 +111,7 @@ const Checkout = ({ fruitDetail }) => {
                   )}
                   <span className="block">{quantity}</span>
                   <button
-                    onClick={plusQty}
+                    onClick={() => plusQty()}
                     class="font-bold material-symbols-outlined p-1 text-[10px] outline-none h-[18px] rounded-full outline-pp-50 hover:text-white hover:bg-pp-100 hover:outline-pp-100 transition-all active:scale-75"
                   >
                     add
