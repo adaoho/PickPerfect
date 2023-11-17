@@ -1,34 +1,38 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/0302N4UV)
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=12856539&assignment_repo_type=AssignmentRepo)
+<!-- [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=12632145&assignment_repo_type=AssignmentRepo)
 
-# PickPerfect API Documentation
+# P2-Challenge-1 (Server Side)
+
+> Tuliskan API Docs kamu di sini -->
+
+# Table Time API Documentation
 
 This document provides an overview of the API endpoints and their usage for our service, <br>
 that can be access on http://server.tabletime.online
 
-### 1. Available endpoints for **_CMS Admin_**
+### 1. Available endpoints for **_Public Site_**
 
-- [**_POST_** /user/add-user](#1-post-add-user)
+- [**_POST_** /user/register](#1-post-register)
 - [**_POST_** /user/login](#2-post-userlogin)
+- [**_POST_** /user/google-login](#3-post-usergoogle-login)
+- [**_POST_** /user/github-login](#4-post-usergithub-login)
+- [**_POST_** /user/facebook-login](#5-post-userfacebook-login)
+- [**_PATCH_** /user/:id](#10-patch-userid)
 
-* [**_POST_** /cuisine/](#3-post-cuisine)
-* [**_GET_** /cuisine/](#4-get-cuisine)
-* [**_GET_** /cuisine/:id](#5-get-cuisineid)
-* [**_PUT_** /cuisine/:id](#6-put-cuisineid)
-* [**_PATCH_** /cuisine/:id](#7-patch-cuisineid)
-* [**_DELETE_** /cuisine/:id](#8-delete-cuisineid)
+* [**_GET_** /fruit/](#6-get-fruit)
+* [**_GET_** /fruit/fetchfruit/](#7-get-fruitfetchfruit)
 
-- [**_GET_** /category/](#8-get-category)
-- [**_POST_** /category/](#10-post-category)
-- [**_PUT_** /category/:id](#11-put-categoryid)
-- [**_DELETE_** /category/:id](#12-delete-categoryid)
+- [**_GET_** /fruitmov/:id](#8-get-fruitmovid)
+- [**_POST_** /fruitmov/:MovementId](#9-post-fruitmovmovementid)
+- [**_DELETE_** /fruitmov/:MovementId](#11-delete-fruitmovmovementid)
 
-### 2. Available endpoints for **_Public Site_**
+* [**_GET_** /purchase/](#12-get-purchase)
+* [**_POST_** /purchase/:id](#13-post-purchaseid)
+* [**_DELETE_** /purchase/:id](#14-delete-purchaseid)
+* [**_PATCH_** /purchase/:id](#15-patch-purchaseid)
 
-- [**_GET_** /pub/](#1-get-pub)
-- [**_GET_** /pub/:id](#2-get-pubid)
+- [**_GET_** /movement/](#16-get-movement)
 
-### 3. Global Error
+### 2. Global Error
 
 - [**_Global Error_**](#global-error)
 
@@ -36,7 +40,7 @@ that can be access on http://server.tabletime.online
 
 <!-- ## 1. POST /user/register -->
 
-## 1. POST /add-user
+## 1. POST /user/register
 
 Endpoint to create account user with default role "staff"
 
@@ -44,21 +48,15 @@ Endpoint to create account user with default role "staff"
 
 ```json
 {
-  "username": "string",
+  "fullname": "string",
   "email": "string",
   "password": "string",
-  "phoneNumber": "string",
-  "address": "string"
+  "imageUrl": "string",
+  "age": "integer",
+  "address": "string",
+  "phoneNumber": "string"
 }
 ```
-
-#### Request - Headers - Authorization (Bearer Scheme)
-
-```http
-Authorization: Bearer <access_token>
-```
-
-_\*Only access_token with role 'admin' can access this endpoint_
 
 <details>
 <summary>
@@ -70,11 +68,12 @@ _Response (201 - Created)_
 ```json
 {
   "newUser": {
-    "id": 6,
-    "username": "Jeremy",
-    "email": "jeremy@mail.com",
-    "role": "staff",
-    "address": "Kabupaten Tangerang"
+    "id": 3,
+    "fullname": "Adnan Nugroho",
+    "email": "adnan@mail.com",
+    "imageUrl": "https://source.unsplash.com/random/500x500/?person",
+    "age": 25,
+    "address": "South Tangerang"
   }
 }
 ```
@@ -95,27 +94,11 @@ OR
 }
 OR
 {
-  "message": "Name is required"
+  "message": "Full Name is required"
 }
 OR
 {
   "message": "Password is required"
-}
-```
-
-_Response (401 - Unauthorized)_
-
-```json
-{
-  "message": "You're Not Authenticated"
-}
-```
-
-_Response (403 - Forbidden)_
-
-```json
-{
-  "message": "You're Not Authorized"
 }
 ```
 
@@ -145,7 +128,10 @@ _Response (200 - OK)_
 
 ```json
 {
-  "access_token": "eyJhbGciOi......"
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG5hbkBtYWlsLmNvbSIsImZ1bGxOYW1lIjoiQWRuYW4gTnVncm9obyIsInBob3RvIjoiaHR0cHM6Ly9zb3VyY2UudW5zcGxhc2guY29tL3JhbmRvbS81MDB4NTAwLz9wZXJzb24iLCJpYXQiOjE3MDAxNTg2NTl9.1T4jd_rWB5yK-QaQAMz65QZhE8V7Htbbv8yYOkWgyyc",
+  "email": "adnan@mail.com",
+  "fullname": "Adnan Nugroho",
+  "photo": "https://source.unsplash.com/random/500x500/?person"
 }
 ```
 
@@ -174,9 +160,111 @@ _Response (401 - Unauthorized)_
 
 </details>
 
-<!-- ## 3. POST /cuisine/ -->
+## 3. POST /user/google-login
 
-## 3. POST /cuisine
+#### Request - Body
+
+```json
+{
+  "token": "string"
+}
+```
+
+<details>
+<summary>
+Click here for Response
+</summary>
+
+_Response (200 - OK)_
+
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG5hbkBtYWlsLmNvbSIsImZ1bGxOYW1lIjoiQWRuYW4gTnVncm9obyIsInBob3RvIjoiaHR0cHM6Ly9zb3VyY2UudW5zcGxhc2guY29tL3JhbmRvbS81MDB4NTAwLz9wZXJzb24iLCJpYXQiOjE3MDAxNTg2NTl9.1T4jd_rWB5yK-QaQAMz65QZhE8V7Htbbv8yYOkWgyyc",
+  "fullname": "Adnan Nugroho",
+  "email": "adnan@mail.com",
+  "photo": "https://source.unsplash.com/random/500x500/?person"
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "Invalid email/password"
+}
+```
+
+&nbsp;
+
+</details>
+
+## 4. POST /user/github-login
+
+#### Request - Body
+
+```json
+{
+  "fullname": "string",
+  "email": "string",
+  "password": "string",
+  "imageUrl": "string"
+}
+```
+
+<details>
+<summary>
+Click here for Response
+</summary>
+
+_Response (200 - OK)_
+
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG5hbkBtYWlsLmNvbSIsImZ1bGxOYW1lIjoiQWRuYW4gTnVncm9obyIsInBob3RvIjoiaHR0cHM6Ly9zb3VyY2UudW5zcGxhc2guY29tL3JhbmRvbS81MDB4NTAwLz9wZXJzb24iLCJpYXQiOjE3MDAxNTg2NTl9.1T4jd_rWB5yK-QaQAMz65QZhE8V7Htbbv8yYOkWgyyc",
+  "fullname": "Adnan Nugroho",
+  "email": "adnan@mail.com",
+  "photo": "https://source.unsplash.com/random/500x500/?person"
+}
+```
+
+&nbsp;
+
+</details>
+
+## 5. POST /user/facebook-login
+
+#### Request - Body
+
+```json
+{
+  "fullname": "string",
+  "email": "string",
+  "password": "string",
+  "imageUrl": "string"
+}
+```
+
+<details>
+<summary>
+Click here for Response
+</summary>
+
+_Response (200 - OK)_
+
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG5hbkBtYWlsLmNvbSIsImZ1bGxOYW1lIjoiQWRuYW4gTnVncm9obyIsInBob3RvIjoiaHR0cHM6Ly9zb3VyY2UudW5zcGxhc2guY29tL3JhbmRvbS81MDB4NTAwLz9wZXJzb24iLCJpYXQiOjE3MDAxNTg2NTl9.1T4jd_rWB5yK-QaQAMz65QZhE8V7Htbbv8yYOkWgyyc",
+  "fullname": "Adnan Nugroho",
+  "email": "adnan@mail.com",
+  "photo": "https://source.unsplash.com/random/500x500/?person"
+}
+```
+
+&nbsp;
+
+</details>
+
+## 6. GET /fruit/
 
 #### Request - Body
 
@@ -205,114 +293,18 @@ _Response (201 - Created)_
 
 ```json
 {
-  "newCuisine": {
-    "id": 3,
-    "name": "Waffle Cone",
-    "description": "Fried Chicken in Cone",
-    "price": 28000,
-    "imgUrl": "https://img.sndimg.com/....",
-    "categoryId": 1,
-    "authorId": 1,
-    "updatedAt": "2023-10-31T01:58:44.765Z",
-    "createdAt": "2023-10-31T01:58:44.765Z"
-  }
-}
-```
-
-_Response (400 - Bad Request)_
-
-```json
-{
-  "message": "Name can't be Empty"
-}
-OR
-{
-  "message": "Description can't be Empty"
-}
-OR
-{
-  "message": "Price can't be Empty"
-}
-OR
-{
-  "message": "Mimimum Price is Rp 8.000"
-}
-OR
-{
-  "message": "Image URL can't be Empty"
-}
-OR
-{
-  "message": "categoryId can't be Empty"
-}
-
-```
-
-_Response (401 - Unauthorized)_
-
-```json
-{
-  "message": "You're Not Authenticated"
-}
-```
-
-&nbsp;
-
-</details>
-
-<!-- ## 4. GET /cuisine/ -->
-
-## 4. GET /cuisine
-
-#### Request - Headers - Authorization (Bearer Scheme)
-
-```http
-Authorization: Bearer <access_token>
-```
-
-<details>
-<summary>
-Click here for Response
-</summary>
-
-_Response (200 - OK)_
-
-```json
-{
-  "getCuisine": [
+  "getFruit": [
     {
       "id": 1,
-      "name": "Pizza",
-      "description": "Delicious and cheesy pizza with your favorite toppings.",
-      "price": 15000,
-      "imgUrl": "https://example.com/pizza.jpg",
-      "categoryId": 3,
-      "authorId": 1,
-      "User": {
-        "id": 1,
-        "username": "Nugroho Adnan",
-        "email": "adaoho@mail.com",
-        "role": "admin",
-        "phoneNumber": "0217407080",
-        "address": "South Tangerang Pamulang 2"
-      }
-    },
-    {
-      "id": 3,
-      "name": "Sushi",
-      "description": "Fresh and flavorful sushi rolls.",
-      "price": 18000,
-      "imgUrl": "https://example.com/sushi.jpg",
-      "categoryId": 2,
-      "authorId": 1,
-      "User": {
-        "id": 1,
-        "username": "Nugroho Adnan",
-        "email": "adaoho@mail.com",
-        "role": "admin",
-        "phoneNumber": "0217407080",
-        "address": "South Tangerang Pamulang 2"
-      }
+      "name": "Persimmon",
+      "family": "Ebenaceae",
+      "calories": "81",
+      "fat": "0",
+      "sugar": "18",
+      "carbohydrates": "18",
+      "protein": "0",
+      "imageUrl": "https://source.unsplash.com/random/900x700/?Persimmon",
+      "MovementId": 1
     },
     ...
   ]
@@ -331,9 +323,7 @@ _Response (401 - Unauthorized)_
 
 </details>
 
-<!-- ## 5. GET /cuisine/:id -->
-
-## 5. GET /cuisine/:id
+## 7. GET /fruit/fetchfruit
 
 #### Request - Headers - Authorization (Bearer Scheme)
 
@@ -341,12 +331,37 @@ _Response (401 - Unauthorized)_
 Authorization: Bearer <access_token>
 ```
 
-#### Request - Params
+<details>
+<summary>
+Click here for Response
+</summary>
+
+_Response (200 - OK)_
 
 ```json
 {
-  "id": "<integer>"
+  "message": "Fetching data from FruityViceAPI Success"
 }
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "You're Not Authenticated"
+}
+```
+
+&nbsp;
+
+</details>
+
+## 8. GET /fruitmov/
+
+#### Request - Headers - Authorization (Bearer Scheme)
+
+```http
+Authorization: Bearer <access_token>
 ```
 
 <details>
@@ -376,7 +391,7 @@ _Response (400 - Bad Request)_
 
 ```json
 {
-  "message": "Error Data Not Found"
+  "message": "User didn't have any Data"
 }
 ```
 
@@ -388,39 +403,19 @@ _Response (401 - Unauthorized)_
 }
 ```
 
-_Response (404 - Not Found)_
-
-```json
-{
-  "message": "Error Data Not Found"
-}
-```
-
 &nbsp;
 
 </details>
 
 <!-- ## 6. PUT /cuisine/:id -->
 
-## 6. PUT /cuisine/:id
-
-#### Request - Body
-
-```json
-{
-  "name": "string",
-  "description": "string",
-  "price": "integer",
-  "imgUrl": "string",
-  "categoryId": "integer"
-}
-```
+## 9. POST /fruitmov/:MovementId
 
 #### Request - Params
 
 ```json
 {
-  "id": "<integer>"
+  "MovementId": "<integer>"
 }
 ```
 
@@ -429,8 +424,6 @@ _Response (404 - Not Found)_
 ```http
 Authorization: Bearer <access_token>
 ```
-
-_\*An access_token with the 'admin' role can access all data, while a 'staff' role access_token can only access their own data_
 
 <details>
 <summary>
@@ -441,17 +434,7 @@ _Response (200 - OK)_
 
 ```json
 {
-  "updatedCuisine": {
-    "id": 1,
-    "name": "Sloppy White",
-    "description": "This beats canned or ...",
-    "price": 12000,
-    "imgUrl": "https://img.sndimg.com/food ...",
-    "categoryId": 1,
-    "authorId": 1,
-    "createdAt": "2023-10-30T20:25:08.875Z",
-    "updatedAt": "2023-10-31T03:02:43.081Z"
-  }
+  "message": "Add Movement <movement name> to User Success"
 }
 ```
 
@@ -459,27 +442,11 @@ _Response (400 - Bad Request)_
 
 ```json
 {
-  "message": "Name can't be Empty"
+  "message": "Data Movement Already Being Input"
 }
 OR
 {
-  "message": "Description can't be Empty"
-}
-OR
-{
-  "message": "Price can't be Empty"
-}
-OR
-{
-  "message": "Mimimum Price is Rp 8.000"
-}
-OR
-{
-  "message": "Image URL can't be Empty"
-}
-OR
-{
-  "message": "categoryId can't be Empty"
+  "message": "Data Movement Already Being Deleted"
 }
 ```
 
@@ -488,14 +455,6 @@ _Response (401 - Unauthorized)_
 ```json
 {
   "message": "You're Not Authenticated"
-}
-```
-
-_Response (403 - Forbidden)_
-
-```json
-{
-  "message": "You're Not Authorized"
 }
 ```
 
@@ -513,7 +472,7 @@ _Response (404 - Not Found)_
 
 <!-- ## 7. PATCH /cuisine/:id -->
 
-## 7. PATCH /cuisine/:id
+## 10. PATCH /user/:id
 
 #### Request - File
 
@@ -536,8 +495,6 @@ _Response (404 - Not Found)_
 ```http
 Authorization: Bearer <access_token>
 ```
-
-_\*An access_token with the 'admin' role can access all data, while a 'staff' role access_token can only access their own data_
 
 <details>
 <summary>
@@ -588,25 +545,13 @@ _Response (404 - Not Found)_
 
 </details>
 
-<!-- ## 8. DELETE /cuisine/:id -->
-
-## 8. DELETE /cuisine/:id
-
-#### Request - Params
-
-```json
-{
-  "id": "<integer>"
-}
-```
+## 11. GET /purchase/
 
 #### Request - Headers - Authorization (Bearer Scheme)
 
 ```http
 Authorization: Bearer <access_token>
 ```
-
-_\*An access_token with the 'admin' role can access all data, while a 'staff' role access_token can only access their own data_
 
 <details>
 <summary>
@@ -649,64 +594,24 @@ _Response (404 - Not Found)_
 
 </details>
 
-<!-- ## 9. GET /category/ -->
-
-## 9. GET /category/
-
-#### Request - Headers - Authorization (Bearer Scheme)
-
-```http
-Authorization: Bearer <access_token>
-```
-
-<details>
-<summary>
-Click here for Response
-</summary>
-
-_Response (200 - OK)_
-
-```json
-{
-  "getCategory": [
-    {
-      "id": 1,
-      "name": "Burgers",
-      "createdAt": "2023-10-30T20:24:52.246Z",
-      "updatedAt": "2023-10-30T20:24:52.246Z"
-    },
-    {
-      "id": 2,
-      "name": "Pizza",
-      "createdAt": "2023-10-30T20:24:52.246Z",
-      "updatedAt": "2023-10-30T20:24:52.246Z"
-    },
-    ...
-  ]
-}
-```
-
-_Response (401 - Unauthorized)_
-
-```json
-{
-  "message": "You're Not Authenticated"
-}
-```
-
-&nbsp;
-
-</details>
-
-<!-- ## 10. POST /category/ -->
-
-## 10. POST /category/
+## 12. POST /purchase/:id
 
 #### Request - Body
 
 ```json
 {
-  "name": "string"
+  "name": "string",
+  "quantity": "integer",
+  "price": "integer",
+  "total": "integer"
+}
+```
+
+#### Request - Params
+
+```json
+{
+  "id": "<integer>"
 }
 ```
 
@@ -725,7 +630,7 @@ _Response (201 - OK)_
 
 ```json
 {
-  "addCategory": {
+  "addPurchase": {
     "id": 6,
     "name": "Indonesian",
     "updatedAt": "2023-10-31T03:41:06.960Z",
@@ -756,15 +661,7 @@ _Response (401 - Unauthorized)_
 
 <!-- ## 11. PUT /category/:id -->
 
-## 11. PUT /category/:id
-
-#### Request - Body
-
-```json
-{
-  "name": "string"
-}
-```
+## 13. DELETE /purchase/:id
 
 #### Request - Params
 
@@ -779,8 +676,6 @@ _Response (401 - Unauthorized)_
 ```http
 Authorization: Bearer <access_token>
 ```
-
-_\*An access_token with the 'admin' role can access all data, while a 'staff' role access_token can only access their own data_
 
 <details>
 <summary>
@@ -838,7 +733,7 @@ _Response (404 - Not Found)_
 
 <!-- ## 12. DELETE /category/:id -->
 
-## 12. DELETE /category/:id
+## 14. PATCH /purchase/:id
 
 #### Request - Params
 
@@ -853,8 +748,6 @@ _Response (404 - Not Found)_
 ```http
 Authorization: Bearer <access_token>
 ```
-
-_\*An access_token with the 'admin' role can access all data, while a 'staff' role access_token can only access their own data_
 
 <details>
 <summary>
@@ -897,89 +790,7 @@ _Response (404 - Not Found)_
 
 </details>
 
----
-
-> With Prefix **/pub** any user without authentication can access this endpoint below.
-
----
-
-<!-- 1. GET /pub/ -->
-
-## 1. GET /pub/
-
-When the query parameters are provided, this endpoint should support data filtering based on the specified query keys and their corresponding values.
-
-#### Request - Query (Optional)
-
-```json
-{
-  "name": "<string>"
-}
-OR
-{
-  "page": "<integer>"
-}
-OR
-{
-  "category": "<array of integer> or <integer>"
-}
-OR
-{
-  "sort": "<string>"
-}
-```
-
-<details>
-<summary>
-Click here for Response
-</summary>
-
-_Response (200 - OK)_
-
-```json
-{
-  "currentPage": 1,
-  "totalData": 16,
-  "totalPage": 2,
-  "getCuisine": [
-    {
-      "id": 1,
-      "name": "Pizza",
-      "description": "Delicious and cheesy pizza with your favorite toppings.",
-      "price": 15000,
-      "imgUrl": "https://example.com/pizza.jpg",
-      "categoryId": 3,
-      "authorId": 1,
-      "Category": {
-        "id": 3,
-        "name": "Sushi"
-      }
-    },
-    {
-      "id": 3,
-      "name": "Sushi",
-      "description": "Fresh and flavorful sushi rolls.",
-      "price": 18000,
-      "imgUrl": "https://example.com/sushi.jpg",
-      "categoryId": 2,
-      "authorId": 1,
-      "Category": {
-        "id": 2,
-        "name": "Pizza"
-      }
-    },
-    ...
-  ]
-}
-```
-
-&nbsp;
-
-</details>
-
-<!-- 2. GET /pub/:id -->
-
-## 2. GET /pub/:id
+## 15. GET /movement/
 
 #### Request - Params
 
@@ -989,6 +800,12 @@ _Response (200 - OK)_
 }
 ```
 
+#### Request - Headers - Authorization (Bearer Scheme)
+
+```http
+Authorization: Bearer <access_token>
+```
+
 <details>
 <summary>
 Click here for Response
@@ -998,17 +815,23 @@ _Response (200 - OK)_
 
 ```json
 {
-  "findCuisine": {
-    "id": 3,
-    "name": "Waffle Cone",
-    "description": "Fried Chicken ...",
-    "price": 28000,
-    "imgUrl": "https://img.sndimg.com/ ...",
-    "categoryId": 1,
-    "authorId": 1,
-    "createdAt": "2023-10-31T01:58:44.765Z",
-    "updatedAt": "2023-10-31T01:58:44.765Z"
-  }
+  "message": "Italian success to delete"
+}
+```
+
+_Response (401 - Unauthorized)_
+
+```json
+{
+  "message": "You're Not Authenticated"
+}
+```
+
+_Response (403 - Forbidden)_
+
+```json
+{
+  "message": "You're Not Authorized"
 }
 ```
 

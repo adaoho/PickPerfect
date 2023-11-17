@@ -28,6 +28,7 @@ const LoginPage = () => {
         localStorage.setItem("fullname", data.fullname);
         localStorage.setItem("email", data.email);
         localStorage.setItem("photo", data.photo);
+        localStorage.setItem("user_id", data.user_id);
         navigate("/");
 
         Swal.fire({
@@ -70,6 +71,7 @@ const LoginPage = () => {
       localStorage.setItem("fullname", data.fullname);
       localStorage.setItem("email", data.email);
       localStorage.setItem("photo", data.photo);
+      localStorage.setItem("user_id", data.user_id);
       navigate("/");
 
       Swal.fire({
@@ -121,6 +123,7 @@ const LoginPage = () => {
       localStorage.setItem("fullname", data.fullname);
       localStorage.setItem("email", data.email);
       localStorage.setItem("photo", data.photo);
+      localStorage.setItem("user_id", data.user_id);
       navigate("/");
 
       Swal.fire({
@@ -175,6 +178,7 @@ const LoginPage = () => {
       localStorage.setItem("email", data.email);
       localStorage.setItem("fullname", data.fullname);
       localStorage.setItem("photo", data.photo);
+      localStorage.setItem("user_id", data.user_id);
       navigate("/");
 
       Swal.fire({

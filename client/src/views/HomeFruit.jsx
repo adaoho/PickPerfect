@@ -1,8 +1,13 @@
+import { useContext } from "react";
 import Card from "../components/Card";
 import SearchBar from "../components/SearchBar";
+import { FruitContenxt } from "../context";
 
 const HomeFruit = () => {
   const getName = localStorage.getItem("fullname").split(" ")[0];
+
+  const { fruit, setFruit } = useContext(FruitContenxt);
+
   return (
     <>
       {/* Section Atas */}
@@ -39,14 +44,15 @@ const HomeFruit = () => {
       <div className="flex h-full w-[100dvw] justify-center items-center mt-8 mb-20">
         <div className="grid grid-cols-4 gap-x-6 gap-y-8 justify-center">
           {/* Card 1 Row */}
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {fruit.map((fruit, index) => (
+            <Card
+              key={fruit.id}
+              index={index + 1}
+              name={fruit.name}
+              price={fruit.price}
+              image={fruit.imageUrl}
+            />
+          ))}
         </div>
       </div>
     </>

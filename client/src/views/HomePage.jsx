@@ -1,9 +1,71 @@
+import { useContext } from "react";
 import CategoryBar from "../components/CategoryBar";
+import { FruitContenxt, MovementContext } from "../context";
+import pickPerfectApi from "../config";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import Toastify from "toastify-js";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const getToken = localStorage.getItem("access_token");
+  const getId = localStorage.getItem("user_id");
+  const { fruit, setFruit } = useContext(FruitContenxt);
+  const { movement, setMovement } = useContext(MovementContext);
+
+  const submitMovement = async (movementid) => {
+    // element.preventDefault()
+    try {
+      const response = await pickPerfectApi.post(
+        `/fruitmov/${movementid}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${getToken}`,
+          },
+        }
+      );
+      console.log(response, "<<< succcess");
+
+      Toastify({
+        text: `Success Add Movement!`,
+        duration: 5000,
+        position: "center",
+        gravity: "bottom",
+        close: true,
+        offset: {
+          y: 30,
+        },
+        style: {
+          background: "linear-gradient(to right, #14C93E, #041C3B)",
+        },
+      }).showToast();
+
+      navigate(`/movement/${getId}`);
+    } catch (error) {
+      console.log(error);
+      Toastify({
+        text: `${error.response.data.message}`,
+        duration: 5000,
+        position: "center",
+        gravity: "top",
+        close: true,
+        offset: {
+          y: 30,
+        },
+        style: {
+          background: "linear-gradient(to right, #900C3F, #F94C10)",
+        },
+      }).showToast();
+    }
+  };
+
   return (
     <>
       {/* Section Bawah */}
+      {console.log(fruit, "<<<< from homepage")}
+      {/* {console.log(movement[0].id, "<<<< from homepage")} */}
+      {console.log(movement, "<<<< from homepage")}
       <div className="flex flex-row w-screen h-full justify-center mt-20">
         <div className="flex flex-row w-screen h-[400px] justify-center">
           {/* First Grid Card */}
@@ -54,7 +116,11 @@ const HomePage = () => {
                       </span>
                     </div>
                     <div className="flex flex-row">
-                      <button className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105">
+                      {/* {console.log(movement[0].name)} */}
+                      <button
+                        onClick={(id) => submitMovement(movement[0].id)}
+                        className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105"
+                      >
                         I'm In
                       </button>
 
@@ -89,7 +155,10 @@ const HomePage = () => {
                     </span>
                   </div>
                   <div className="flex flex-row">
-                    <button className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105">
+                    <button
+                      onClick={(id) => submitMovement(movement[1].id)}
+                      className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105"
+                    >
                       I'm In
                     </button>
 
@@ -118,7 +187,10 @@ const HomePage = () => {
                     </span>
                   </div>
                   <div className="flex flex-row">
-                    <button className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105">
+                    <button
+                      onClick={(id) => submitMovement(movement[3].id)}
+                      className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105"
+                    >
                       I'm In
                     </button>
 
@@ -151,7 +223,10 @@ const HomePage = () => {
                     </span>
                   </div>
                   <div className="flex flex-row">
-                    <button className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105">
+                    <button
+                      onClick={(id) => submitMovement(movement[2].id)}
+                      className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105"
+                    >
                       I'm In
                     </button>
 
@@ -180,7 +255,10 @@ const HomePage = () => {
                     </span>
                   </div>
                   <div className="flex flex-row">
-                    <button className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105">
+                    <button
+                      onClick={(id) => submitMovement(movement[4].id)}
+                      className="p-1 px-5 mr-2 bg-pp-150 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105"
+                    >
                       I'm In
                     </button>
 

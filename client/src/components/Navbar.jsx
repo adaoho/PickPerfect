@@ -7,6 +7,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const getToken = localStorage.getItem("access_token");
   const getPhoto = localStorage.getItem("photo");
+  const getId = localStorage.getItem("user_id");
   const isLogin = getToken ? getToken : false;
   const getName = localStorage.getItem("fullname");
 
@@ -47,7 +48,7 @@ const Navbar = () => {
         <div className="">
           <div className="flex items-center justify-evenly rounded-full shadow-md h-12 w-[480px] border font-roboto">
             <Link
-              to={"/movement/1"}
+              to={`/movement/${getId}`}
               className="border-r-2 border-gray-100 px-4 text-sm font-medium hover:scale-105 hover:text-pp-100 active:scale-90 transition-all hover:font-bold"
             >
               Your Move
