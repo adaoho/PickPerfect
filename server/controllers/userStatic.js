@@ -64,6 +64,7 @@ class UserStatic {
 
       res.status(200).json({
         access_token,
+        user_id: findUser.id,
         email: findUser.email,
         fullname: findUser.fullname,
         photo: findUser.imageUrl,
@@ -116,6 +117,7 @@ class UserStatic {
       });
       res.status(200).json({
         access_token,
+        user_id: user.id,
         fullname: user.fullname,
         email: user.email,
         photo: user.imageUrl,
@@ -150,6 +152,7 @@ class UserStatic {
 
       res.status(200).json({
         access_token,
+        user_id: user.id,
         fullname: user.fullname,
         email: user.email,
         photo: user.imageUrl,
@@ -186,6 +189,7 @@ class UserStatic {
 
       res.status(200).json({
         access_token,
+        user_id: user.id,
         fullname: user.fullname,
         email: user.email,
         photo: user.imageUrl,

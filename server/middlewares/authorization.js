@@ -6,9 +6,13 @@ async function authorization(req, res, next) {
 
     const findUser = await User.findByPk(id);
 
+    // console.log(findUser);
+
     if (!findUser) {
       throw { name: `InvalidId` };
     }
+
+    next();
   } catch (error) {
     next(error);
   }

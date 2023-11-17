@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       carbohydrates: DataTypes.STRING,
       protein: DataTypes.STRING,
       imageUrl: DataTypes.STRING,
+      price: DataTypes.INTEGER,
       MovementId: DataTypes.INTEGER,
     },
     {

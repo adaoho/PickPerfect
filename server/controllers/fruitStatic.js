@@ -17,6 +17,7 @@ class FruitStatic {
           sugar: element.nutritions.sugar,
           carbohydrates: element.nutritions.carbohydrates,
           protein: element.nutritions.protein,
+          price: Math.ceil(Math.random() * 25000),
           imageUrl: `https://source.unsplash.com/random/900x700/?${element.name}`,
         });
       });
@@ -39,6 +40,24 @@ class FruitStatic {
 
       res.status(200).json({
         getFruit,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getFruitDetail(req, res, next) {
+    try {
+      const { id } = req.params;
+      const getFruitDetail = await Fruit.findOne({
+        where: { id },
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+      });
+
+      res.status(200).json({
+        getFruitDetail,
       });
     } catch (error) {
       next(error);

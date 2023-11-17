@@ -33,6 +33,9 @@ module.exports = {
       imageUrl: {
         type: Sequelize.STRING,
       },
+      price: {
+        type: Sequelize.INTEGER,
+      },
       MovementId: {
         type: Sequelize.INTEGER,
         references: {
