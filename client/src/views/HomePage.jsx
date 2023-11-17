@@ -5,6 +5,7 @@ import pickPerfectApi from "../config";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import Toastify from "toastify-js";
+import { createContext, useState, useEffect } from "react";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -59,6 +60,24 @@ const HomePage = () => {
       }).showToast();
     }
   };
+
+  useEffect(() => {
+    const fetchFruit = async () => {
+      try {
+        const { data } = await pickPerfectApi.get("/fruit/fetchfruit", {
+          headers: {
+            Authorization: `Bearer ${getToken}`,
+          },
+        });
+
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchFruit();
+  }, []);
 
   return (
     <>
