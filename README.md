@@ -4,10 +4,10 @@
 
 > Tuliskan API Docs kamu di sini -->
 
-# Table Time API Documentation
+# Pick Perfect API Documentation
 
 This document provides an overview of the API endpoints and their usage for our service, <br>
-that can be access on http://server.tabletime.online
+that can be access on http://server.adaoho-project.my.id
 
 ### 1. Available endpoints for **_Public Site_**
 
