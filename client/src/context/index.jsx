@@ -5,33 +5,42 @@ export const FruitContenxt = createContext();
 export const MovementContext = createContext();
 export const FruitMovContext = createContext();
 
-const getToken = localStorage.getItem("access_token");
-
 export const FruitProvider = ({ children }) => {
   const [fruit, setFruit] = useState([]);
+  const getToken = localStorage.getItem("access_token");
+
+  const currencyFormatted = (number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      maximumFractionDigits: 0,
+    }).format(number);
+  };
+
+  const fetchFruitProvider = async () => {
+    try {
+      const { data } = await pickPerfectApi.get("/fruit/", {
+        headers: {
+          Authorization: `Bearer ${getToken}`,
+        },
+      });
+
+      // console.log(data, "<<< from fetch");
+      setFruit(data.getFruit);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    const fetchFruitProvider = async () => {
-      try {
-        const { data } = await pickPerfectApi.get("/fruit/", {
-          headers: {
-            Authorization: `Bearer ${getToken}`,
-          },
-        });
-
-        // console.log(data, "<<< from fetch");
-        setFruit(data.getFruit);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     fetchFruitProvider();
   }, []);
 
   return (
     <>
-      <FruitContenxt.Provider value={{ fruit, setFruit }}>
+      <FruitContenxt.Provider
+        value={{ fruit, setFruit, fetchFruitProvider, currencyFormatted }}
+      >
         {children}
       </FruitContenxt.Provider>
     </>
@@ -40,6 +49,7 @@ export const FruitProvider = ({ children }) => {
 
 export const MovementProvider = ({ children }) => {
   const [movement, setMovement] = useState([]);
+  const getToken = localStorage.getItem("access_token");
 
   const fetchMovementProvider = async () => {
     try {
@@ -77,6 +87,7 @@ export const MovementProvider = ({ children }) => {
 
 export const FruitMovProvider = ({ children }) => {
   const [fruitMov, setFruitMov] = useState([]);
+  const getToken = localStorage.getItem("access_token");
 
   const fetchFruitMov = async () => {
     try {

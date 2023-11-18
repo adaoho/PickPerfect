@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Card from "../components/Card";
 import SearchBar from "../components/SearchBar";
 import { FruitContenxt } from "../context";
@@ -6,7 +6,11 @@ import { FruitContenxt } from "../context";
 const HomeFruit = () => {
   const getName = localStorage.getItem("fullname").split(" ")[0];
 
-  const { fruit, setFruit } = useContext(FruitContenxt);
+  const { fruit, setFruit, fetchFruitProvider } = useContext(FruitContenxt);
+
+  useEffect(() => {
+    fetchFruitProvider();
+  }, []);
 
   return (
     <>

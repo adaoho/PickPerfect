@@ -98,178 +98,189 @@ const MovementPage = () => {
             </h1>
           </div>
         )}
-        {fruitMov.map((element) => (
-          <div
-            key={"fruitMov" + element.id}
-            className="flex flex-row w-[100dvw] h-[390px] justify-center items-center px-4"
-          >
+
+        {fruitMov.length > 0 && (
+          <div className="flex flex-row w-[100dvw] h-[390px] justify-center items-center px-4">
             {/* -- In Card */}
-            <div className="flex flex-row w-[1300px] gap-x-5">
-              {/* Card Movement */}
-              <div className="relative flex row-span-2 transition-all duration-300 rounded-md w-8/12 h-[395px] bg-clip-content overflow-hidden group bg-gradient-to-t from-pp-50 items-end hover:shadow-2xl">
-                <div className="absolute top-0 m-10">
-                  <p className="text-white font-bold font-raleway text-5xl mb-2">
-                    {element.Movement.name}
-                  </p>
-                  <span className="font-roboto font-extralight text-white text-[15px]">
-                    {element.Movement.description}
-                  </span>
-                </div>
+            {fruitMov.map((element) => (
+              <div
+                key={"fruitMov" + element.id}
+                className="flex flex-row w-[1300px] gap-x-5"
+              >
+                {/* Card Movement */}
+                <div className="relative flex row-span-2 transition-all duration-300 rounded-md w-8/12 h-[395px] bg-clip-content overflow-hidden group bg-gradient-to-t from-pp-50 items-end hover:shadow-2xl">
+                  <div className="absolute top-0 m-10">
+                    <p className="text-white font-bold font-raleway text-5xl mb-2">
+                      {element.Movement.name}
+                    </p>
+                    <span className="font-roboto font-extralight text-white text-[15px]">
+                      {element.Movement.description}
+                    </span>
+                  </div>
 
-                <div className="absolute bottom-0-0 m-10">
-                  <button
-                    onClick={(id) => leaveMovement(element.Movement.id)}
-                    className="flex items-center gap-x-2 p-2 px-5 mr-2 bg-pp-50 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105"
-                  >
-                    <span class="material-symbols-outlined">move_item</span>
-                    Leave The Movement
-                  </button>
+                  <div className="absolute bottom-0-0 m-10">
+                    <button
+                      onClick={(id) => leaveMovement(element.Movement.id)}
+                      className="flex items-center gap-x-2 p-2 px-5 mr-2 bg-pp-50 text-white rounded-md font-roboto hover:bg-pp-100 hover:text-white transition-all hover:scale-105"
+                    >
+                      <span class="material-symbols-outlined">move_item</span>
+                      Leave The Movement
+                    </button>
+                  </div>
+                  <img
+                    src={element.Movement.imageUrl}
+                    className="flex w-full object-cover h-full rounded-lg brightness-65 group-hover:scale-105 transform transition-transform duration-300 -z-10"
+                  />
                 </div>
-                <img
-                  src={element.Movement.imageUrl}
-                  className="flex w-full object-cover h-full rounded-lg brightness-65 group-hover:scale-105 transform transition-transform duration-300 -z-10"
-                />
+                {/* {console.log(element.Movement.Fruits[0]?.name, "<<< this is it")} */}
+                {/* Card Fruit */}
+                <div className="flex flex-col w-4/12 gap-y-4">
+                  <div className="flex flex-row h-[190px] gap-x-4 overflow-hidden bg-clip-content">
+                    {/* --- Card Fruit Section 1 */}
+                    <div className="group relative flex transition-all hover:bg-pp-100/20 duration-300 rounded-md bg-clip-content overflow-hidden group items-end hover:shadow-2xl">
+                      <div className="absolute top-0 right-0">
+                        <button
+                          onClick={() =>
+                            goToDetails(element.Movement.Fruits[0]?.id)
+                          }
+                        >
+                          <span class="material-symbols-outlined rounded-bl-xl p-2 bg-gray-500 text-white hover:bg-pp-100 transition-all">
+                            info
+                          </span>
+                        </button>
+                        <span class="material-symbols-outlined p-2 bg-pp-150 text-white hover:bg-pp-100 transition-all">
+                          add_shopping_cart
+                        </span>
+                      </div>
+
+                      <div className="absolute bottom-0 bg-pp-50 w-full p-3 items-center transition-all">
+                        <div className="flex flex-row w-full justify-between">
+                          <h1 className="text-white font-roboto">
+                            {element.Movement.Fruits[0]?.name}
+                          </h1>
+                          <h1 className="text-white font-roboto">
+                            {currencyFormatted(
+                              element.Movement.Fruits[0]?.price
+                            )}
+                          </h1>
+                        </div>
+                      </div>
+                      <img
+                        src={element.Movement.Fruits[0]?.imageUrl}
+                        className="flex w-full object-cover h-[320px] group-hover:scale-105 rounded-lg brightness-65 transform transition-transform duration-300 -z-10"
+                      />
+                    </div>
+
+                    {/* --- Card Fruit 1 */}
+                    <div className="group relative flex transition-all hover:bg-pp-100/20 duration-300 rounded-md bg-clip-content overflow-hidden group items-end hover:shadow-2xl">
+                      <div className="absolute top-0 right-0">
+                        <button
+                          onClick={() =>
+                            goToDetails(element.Movement.Fruits[1]?.id)
+                          }
+                        >
+                          <span class="material-symbols-outlined rounded-bl-xl p-2 bg-gray-500 text-white hover:bg-pp-100 transition-all">
+                            info
+                          </span>
+                        </button>
+                        <span class="material-symbols-outlined p-2 bg-pp-150 text-white hover:bg-pp-100 transition-all">
+                          add_shopping_cart
+                        </span>
+                      </div>
+
+                      <div className="absolute bottom-0 bg-pp-50 w-full p-3 items-center transition-all">
+                        <div className="flex flex-row w-full justify-between">
+                          <h1 className="text-white font-roboto">
+                            {element.Movement.Fruits[1]?.name}
+                          </h1>
+                          <h1 className="text-white font-roboto">
+                            {currencyFormatted(
+                              element.Movement.Fruits[1]?.price
+                            )}
+                          </h1>
+                        </div>
+                      </div>
+                      <img
+                        src={element.Movement.Fruits[1]?.imageUrl}
+                        className="flex w-full object-cover h-[320px] group-hover:scale-105 rounded-lg brightness-65 transform transition-transform duration-300 -z-10"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-row h-[190px] gap-x-4">
+                    {/* --- Card Fruit 1 */}
+                    <div className="group relative flex transition-all hover:bg-pp-100/20 duration-300 rounded-md bg-clip-content overflow-hidden group items-end hover:shadow-2xl">
+                      <div className="absolute top-0 right-0">
+                        <button
+                          onClick={() =>
+                            goToDetails(element.Movement.Fruits[2]?.id)
+                          }
+                        >
+                          <span class="material-symbols-outlined rounded-bl-xl p-2 bg-gray-500 text-white hover:bg-pp-100 transition-all">
+                            info
+                          </span>
+                        </button>
+                        <span class="material-symbols-outlined p-2 bg-pp-150 text-white hover:bg-pp-100 transition-all">
+                          add_shopping_cart
+                        </span>
+                      </div>
+
+                      <div className="absolute bottom-0 bg-pp-50 w-full p-3 items-center transition-all">
+                        <div className="flex flex-row w-full justify-between">
+                          <h1 className="text-white font-roboto">
+                            {element.Movement.Fruits[2]?.name}
+                          </h1>
+                          <h1 className="text-white font-roboto">
+                            {currencyFormatted(
+                              element.Movement.Fruits[2]?.price
+                            )}
+                          </h1>
+                        </div>
+                      </div>
+                      <img
+                        src={element.Movement.Fruits[2]?.imageUrl}
+                        className="flex w-full object-cover h-[320px] group-hover:scale-105 rounded-lg brightness-65 transform transition-transform duration-300 -z-10"
+                      />
+                    </div>
+                    <div className="group relative flex transition-all hover:bg-pp-100/20 duration-300 rounded-md bg-clip-content overflow-hidden group items-end hover:shadow-2xl">
+                      <div className="absolute top-0 right-0">
+                        <button
+                          onClick={() =>
+                            goToDetails(element.Movement.Fruits[3]?.id)
+                          }
+                        >
+                          <span class="material-symbols-outlined rounded-bl-xl p-2 bg-gray-500 text-white hover:bg-pp-100 transition-all">
+                            info
+                          </span>
+                        </button>
+                        <span class="material-symbols-outlined p-2 bg-pp-150 text-white hover:bg-pp-100 transition-all">
+                          add_shopping_cart
+                        </span>
+                      </div>
+
+                      <div className="absolute bottom-0 bg-pp-50 w-full p-3 items-center transition-all">
+                        <div className="flex flex-row w-full justify-between">
+                          <h1 className="text-white font-roboto">
+                            {element.Movement.Fruits[3]?.name}
+                          </h1>
+                          <h1 className="text-white font-roboto">
+                            {currencyFormatted(
+                              element.Movement.Fruits[3]?.price
+                            )}
+                          </h1>
+                        </div>
+                      </div>
+                      <img
+                        src={element.Movement.Fruits[3]?.imageUrl}
+                        className="flex w-full object-cover h-[320px] group-hover:scale-105 rounded-lg brightness-65 transform transition-transform duration-300 -z-10"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
-              {/* {console.log(element.Movement.Fruits[0]?.name, "<<< this is it")} */}
-              {/* Card Fruit */}
-              <div className="flex flex-col w-4/12 gap-y-4">
-                <div className="flex flex-row h-[190px] gap-x-4 overflow-hidden bg-clip-content">
-                  {/* --- Card Fruit Section 1 */}
-                  <div className="group relative flex transition-all hover:bg-pp-100/20 duration-300 rounded-md bg-clip-content overflow-hidden group items-end hover:shadow-2xl">
-                    <div className="absolute top-0 right-0">
-                      <button
-                        onClick={() =>
-                          goToDetails(element.Movement.Fruits[0]?.id)
-                        }
-                      >
-                        <span class="material-symbols-outlined rounded-bl-xl p-2 bg-gray-500 text-white hover:bg-pp-100 transition-all">
-                          info
-                        </span>
-                      </button>
-                      <span class="material-symbols-outlined p-2 bg-pp-150 text-white hover:bg-pp-100 transition-all">
-                        add_shopping_cart
-                      </span>
-                    </div>
-
-                    <div className="absolute bottom-0 bg-pp-50 w-full p-3 items-center transition-all">
-                      <div className="flex flex-row w-full justify-between">
-                        <h1 className="text-white font-roboto">
-                          {element.Movement.Fruits[0]?.name}
-                        </h1>
-                        <h1 className="text-white font-roboto">
-                          {currencyFormatted(element.Movement.Fruits[0]?.price)}
-                        </h1>
-                      </div>
-                    </div>
-                    <img
-                      src={element.Movement.Fruits[0]?.imageUrl}
-                      className="flex w-full object-cover h-[320px] group-hover:scale-105 rounded-lg brightness-65 transform transition-transform duration-300 -z-10"
-                    />
-                  </div>
-
-                  {/* --- Card Fruit 1 */}
-                  <div className="group relative flex transition-all hover:bg-pp-100/20 duration-300 rounded-md bg-clip-content overflow-hidden group items-end hover:shadow-2xl">
-                    <div className="absolute top-0 right-0">
-                      <button
-                        onClick={() =>
-                          goToDetails(element.Movement.Fruits[1]?.id)
-                        }
-                      >
-                        <span class="material-symbols-outlined rounded-bl-xl p-2 bg-gray-500 text-white hover:bg-pp-100 transition-all">
-                          info
-                        </span>
-                      </button>
-                      <span class="material-symbols-outlined p-2 bg-pp-150 text-white hover:bg-pp-100 transition-all">
-                        add_shopping_cart
-                      </span>
-                    </div>
-
-                    <div className="absolute bottom-0 bg-pp-50 w-full p-3 items-center transition-all">
-                      <div className="flex flex-row w-full justify-between">
-                        <h1 className="text-white font-roboto">
-                          {element.Movement.Fruits[1]?.name}
-                        </h1>
-                        <h1 className="text-white font-roboto">
-                          {currencyFormatted(element.Movement.Fruits[1]?.price)}
-                        </h1>
-                      </div>
-                    </div>
-                    <img
-                      src={element.Movement.Fruits[1]?.imageUrl}
-                      className="flex w-full object-cover h-[320px] group-hover:scale-105 rounded-lg brightness-65 transform transition-transform duration-300 -z-10"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-row h-[190px] gap-x-4">
-                  {/* --- Card Fruit 1 */}
-                  <div className="group relative flex transition-all hover:bg-pp-100/20 duration-300 rounded-md bg-clip-content overflow-hidden group items-end hover:shadow-2xl">
-                    <div className="absolute top-0 right-0">
-                      <button
-                        onClick={() =>
-                          goToDetails(element.Movement.Fruits[2]?.id)
-                        }
-                      >
-                        <span class="material-symbols-outlined rounded-bl-xl p-2 bg-gray-500 text-white hover:bg-pp-100 transition-all">
-                          info
-                        </span>
-                      </button>
-                      <span class="material-symbols-outlined p-2 bg-pp-150 text-white hover:bg-pp-100 transition-all">
-                        add_shopping_cart
-                      </span>
-                    </div>
-
-                    <div className="absolute bottom-0 bg-pp-50 w-full p-3 items-center transition-all">
-                      <div className="flex flex-row w-full justify-between">
-                        <h1 className="text-white font-roboto">
-                          {element.Movement.Fruits[2]?.name}
-                        </h1>
-                        <h1 className="text-white font-roboto">
-                          {currencyFormatted(element.Movement.Fruits[2]?.price)}
-                        </h1>
-                      </div>
-                    </div>
-                    <img
-                      src={element.Movement.Fruits[2]?.imageUrl}
-                      className="flex w-full object-cover h-[320px] group-hover:scale-105 rounded-lg brightness-65 transform transition-transform duration-300 -z-10"
-                    />
-                  </div>
-                  <div className="group relative flex transition-all hover:bg-pp-100/20 duration-300 rounded-md bg-clip-content overflow-hidden group items-end hover:shadow-2xl">
-                    <div className="absolute top-0 right-0">
-                      <button
-                        onClick={() =>
-                          goToDetails(element.Movement.Fruits[3]?.id)
-                        }
-                      >
-                        <span class="material-symbols-outlined rounded-bl-xl p-2 bg-gray-500 text-white hover:bg-pp-100 transition-all">
-                          info
-                        </span>
-                      </button>
-                      <span class="material-symbols-outlined p-2 bg-pp-150 text-white hover:bg-pp-100 transition-all">
-                        add_shopping_cart
-                      </span>
-                    </div>
-
-                    <div className="absolute bottom-0 bg-pp-50 w-full p-3 items-center transition-all">
-                      <div className="flex flex-row w-full justify-between">
-                        <h1 className="text-white font-roboto">
-                          {element.Movement.Fruits[3]?.name}
-                        </h1>
-                        <h1 className="text-white font-roboto">
-                          {currencyFormatted(element.Movement.Fruits[3]?.price)}
-                        </h1>
-                      </div>
-                    </div>
-                    <img
-                      src={element.Movement.Fruits[3]?.imageUrl}
-                      className="flex w-full object-cover h-[320px] group-hover:scale-105 rounded-lg brightness-65 transform transition-transform duration-300 -z-10"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
-        ))}
+        )}
       </section>
     </>
   );

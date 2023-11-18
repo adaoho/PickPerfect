@@ -11,8 +11,9 @@ const HomePage = () => {
   const navigate = useNavigate();
   const getToken = localStorage.getItem("access_token");
   const getId = localStorage.getItem("user_id");
-  const { fruit, setFruit } = useContext(FruitContenxt);
-  const { movement, setMovement } = useContext(MovementContext);
+  const { fruit } = useContext(FruitContenxt);
+  const { movement, setMovement, fetchMovementProvider } =
+    useContext(MovementContext);
   const { fruitMov, setFruitMov, fetchFruitMov } = useContext(FruitMovContext);
 
   const submitMovement = async (movementid) => {

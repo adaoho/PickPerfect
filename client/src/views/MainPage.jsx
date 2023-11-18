@@ -2,8 +2,14 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import CategoryBar from "../components/CategoryBar";
-import { FruitMovProvider, FruitProvider, MovementProvider } from "../context";
+import {
+  FruitContenxt,
+  FruitMovProvider,
+  FruitProvider,
+  MovementProvider,
+} from "../context";
 import pickPerfectApi from "../config";
+import { useContext, useEffect } from "react";
 
 const MainPage = () => {
   return (

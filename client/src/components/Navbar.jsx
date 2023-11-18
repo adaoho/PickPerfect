@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/pickperfect_logo.png";
 import { googleLogout } from "@react-oauth/google";
 import Toastify from "toastify-js";
+import { useContext } from "react";
+import { FruitContenxt } from "../context";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -10,11 +12,7 @@ const Navbar = () => {
   const getId = localStorage.getItem("user_id");
   const isLogin = getToken ? getToken : false;
   const getName = localStorage.getItem("fullname");
-
-  const randomChef = () => {
-    let id = Math.ceil(Math.random() * 21);
-    navigate(`/cuisine/${id}`);
-  };
+  const { fetchFruitProvider } = useContext(FruitContenxt);
 
   const btnLogout = (e) => {
     e.preventDefault();
@@ -36,6 +34,16 @@ const Navbar = () => {
     }).showToast();
   };
 
+  const changeMovement = async () => {
+    fetchFruitProvider();
+    navigate(`/movement/${getId}`);
+  };
+
+  const changeFruit = async () => {
+    fetchFruitProvider();
+    navigate(`/fruit`);
+  };
+
   return (
     <>
       <div className="w-screen grid grid-cols-3 h-20 border-b-[1px] items-center fixed top-0 bg-white px-14 z-20">
@@ -45,28 +53,27 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="sm:hidden lg:flex">
-          <div className="flex items-center justify-evenly sm:justify-between rounded-full shadow-md h-12 w-[480px] md:w-full border font-roboto">
-            <Link
-              to={`/movement/${getId}`}
-              className="border-r-2 border-gray-100 px-4 text-sm font-medium hover:scale-105 hover:text-pp-100 active:scale-90 transition-all hover:font-bold"
+        <div className="sm:hidden lg:flex w-[480px]">
+          <div className="flex items-center justify-between sm:justify-between rounded-full shadow-md h-12 w-full md:w-full border font-roboto">
+            <button
+              onClick={() => changeMovement()}
+              className="w-full border-r-2 text-center border-gray-100 px-2 items-center text-sm font-medium hover:scale-105 hover:text-pp-100 active:scale-90 transition-all hover:font-bold"
             >
               Your Move
-            </Link>
-            <Link
-              to={"/fruit"}
-              onClick={() => randomChef()}
-              className="border-r-2 border-gray-100 px-4 text-sm font-medium hover:scale-105 hover:text-pp-100 active:scale-90 transition-all hover:font-bold"
+            </button>
+            <button
+              onClick={() => changeFruit()}
+              className="w-full border-r-2 text-center border-gray-100 px-2 items-center text-sm font-medium hover:scale-105 hover:text-pp-100 active:scale-90 transition-all hover:font-bold"
             >
               Fruit Nutritions
-            </Link>
+            </button>
             <Link
               to={"/purchase/1"}
-              className="border-r-2 border-gray-100 px-4 font-medium text-sm hover:scale-105 hover:text-pp-100 active:scale-90 transition-all hover:font-bold"
+              className="w-full border-r-2 text-center border-gray-100 px-1 items-center font-medium text-sm hover:scale-105 hover:text-pp-100 active:scale-90 transition-all hover:font-bold"
             >
               Purchase
             </Link>
-            <button className="border-gray-100 px-4 text-sm text-gray-400 hover:scale-105 hover:text-pp-100 active:scale-90 transition-all hover:font-bold">
+            <button className="w-full border-gray-100 text-center px-4 text-sm items-center text-gray-400 hover:scale-105 hover:text-pp-100 active:scale-90 transition-all hover:font-bold">
               Talk to Us
             </button>
           </div>

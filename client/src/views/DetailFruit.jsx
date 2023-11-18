@@ -34,7 +34,7 @@ const DetailFruit = () => {
       {console.log(fruitDetail)}
       <div className="mt-24 flex flex-row w-[100dvw] h-[720px] px-20 justify-center items-start">
         {/* Grid Left */}
-        <div className="flex flex-col w-[700px] h-[500px] justify-center items-start">
+        <div className="mt-4 flex flex-col w-[700px] h-[500px] justify-center items-start">
           <img
             src={fruitDetail.imageUrl}
             className="rounded-xl w-full h-full object-cover"
